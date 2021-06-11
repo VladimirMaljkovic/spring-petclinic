@@ -24,7 +24,7 @@ pipeline {
 
     stage ('Build') {
             steps {
-                sh 'mvn install -Dskiptests'
+                sh 'mvn install -Dmaven.test.skip=true'
                 echo 'starting junit step rn'
             }
             
