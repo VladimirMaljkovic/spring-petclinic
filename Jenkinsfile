@@ -37,13 +37,14 @@ pipeline {
         }
 
     stage('Send email') {
-      def mailRecipients = "your_recipients@company.com"
+      def mailRecipients = "maljkovic.vladimir@gmail.com"
       def jobName = currentBuild.fullDisplayName
 
       emailext body: '''${SCRIPT, template="groovy-html.template"}''',
         mimeType: 'text/html',
         subject: "[Jenkins] ${jobName}",
-        to: "maljkovic.vladimir@gmail.com",
+        to: "${mailRecipients}",
+        replyTo: "${mailRecipients}",
         recipientProviders: [[$class: 'CulpritsRecipientProvider']]
 }
 
