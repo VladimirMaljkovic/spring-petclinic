@@ -43,8 +43,7 @@ pipeline {
       emailext body: '''${SCRIPT, template="groovy-html.template"}''',
         mimeType: 'text/html',
         subject: "[Jenkins] ${jobName}",
-        to: "${mailRecipients}",
-        replyTo: "${mailRecipients}",
+        to: "maljkovic.vladimir@gmail.com",
         recipientProviders: [[$class: 'CulpritsRecipientProvider']]
 }
 
