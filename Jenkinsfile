@@ -22,7 +22,7 @@ pipeline {
       }
     }
 
-    stage ('Build') {
+    stage ('Build & test') {
             steps {
                 sh 'mvn install -Dmaven.test.skip=true'
                 echo 'starting junit step rn'
@@ -36,9 +36,13 @@ pipeline {
             }
         }
 
-    stage('publish') {
-      steps {
-        nexusArtifactUploader(nexusVersion: '3.30.1-01', nexusUrl: '172.16.238.7:8081', repository: 'maven-proxy-test')
+    stage('send emails') {
+      steps{
+        step{
+          emailext body: 'Test Message',
+          subject: 'Test Subject',
+          to: 'test@example.com'
+        }
       }
     }
 
