@@ -54,7 +54,7 @@ pipeline {
 
     stage('publish') {
       steps {
-        nexusArtifactUploader(nexusUrl: 'http://172.16.238.7:8081/repository/maven-proxy-test/')
+        nexusArtifactUploader(nexusVersion: '3.30.1-01', nexusUrl: '172.16.238.7:8081', repository: 'maven-proxy-test')
       }
     }
 
