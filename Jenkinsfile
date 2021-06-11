@@ -24,9 +24,10 @@ pipeline {
 
     stage ('Build') {
             steps {
-                sh 'mvn install -Dskiptests' 
+                sh 'mvn install -Dskiptests'
+                echo 'starting junit step rn'
             }
-            echo 'starting junit step rn'
+            
             post {
                 success {
                     junit 'target/surefire-reports/**/*.xml' 
