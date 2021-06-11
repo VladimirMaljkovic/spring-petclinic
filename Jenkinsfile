@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+  }
   stages {
     stage('pull sources') {
       parallel {
@@ -18,39 +22,16 @@ pipeline {
       }
     }
 
-    stage('build') {
-      parallel {
-        stage('build') {
-          steps {
-            sh 'mvn install -DskipTests'
-          }
+    stage ('Build') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+            }
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
+            }
         }
-
-        stage('print') {
-          steps {
-            echo 'Building without tests...'
-          }
-        }
-
-      }
-    }
-
-    stage('test') {
-      parallel {
-        stage('test') {
-          steps {
-            sh 'mvn test'
-          }
-        }
-
-        stage('print') {
-          steps {
-            echo 'testing'
-          }
-        }
-
-      }
-    }
 
     stage('publish') {
       steps {
